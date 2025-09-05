@@ -262,6 +262,144 @@ export type Database = {
           },
         ]
       }
+      marketplace_profiles: {
+        Row: {
+          bio: string | null
+          created_at: string
+          email: string
+          first_name: string
+          id: string
+          last_name: string
+          location: string | null
+          phone: string | null
+          profile_image_url: string | null
+          role: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          bio?: string | null
+          created_at?: string
+          email: string
+          first_name: string
+          id?: string
+          last_name: string
+          location?: string | null
+          phone?: string | null
+          profile_image_url?: string | null
+          role?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          bio?: string | null
+          created_at?: string
+          email?: string
+          first_name?: string
+          id?: string
+          last_name?: string
+          location?: string | null
+          phone?: string | null
+          profile_image_url?: string | null
+          role?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      order_items: {
+        Row: {
+          created_at: string
+          id: string
+          item_type: string
+          order_id: string
+          photo_id: string
+          price: number
+          print_option_id: string | null
+          quantity: number | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          item_type: string
+          order_id: string
+          photo_id: string
+          price: number
+          print_option_id?: string | null
+          quantity?: number | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          item_type?: string
+          order_id?: string
+          photo_id?: string
+          price?: number
+          print_option_id?: string | null
+          quantity?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "fk_order_items_order"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "orders"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "fk_order_items_photo"
+            columns: ["photo_id"]
+            isOneToOne: false
+            referencedRelation: "photos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "fk_order_items_print_option"
+            columns: ["print_option_id"]
+            isOneToOne: false
+            referencedRelation: "print_options"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      orders: {
+        Row: {
+          created_at: string
+          customer_id: string
+          id: string
+          status: Database["public"]["Enums"]["order_status"] | null
+          stripe_payment_intent_id: string | null
+          total_amount: number
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          customer_id: string
+          id?: string
+          status?: Database["public"]["Enums"]["order_status"] | null
+          stripe_payment_intent_id?: string | null
+          total_amount: number
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          customer_id?: string
+          id?: string
+          status?: Database["public"]["Enums"]["order_status"] | null
+          stripe_payment_intent_id?: string | null
+          total_amount?: number
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "fk_orders_customer"
+            columns: ["customer_id"]
+            isOneToOne: false
+            referencedRelation: "marketplace_profiles"
+            referencedColumns: ["user_id"]
+          },
+        ]
+      }
       patients: {
         Row: {
           address: string | null
@@ -316,6 +454,148 @@ export type Database = {
         }
         Relationships: []
       }
+      photographer_payouts: {
+        Row: {
+          amount: number
+          created_at: string
+          id: string
+          photographer_id: string
+          processed_at: string | null
+          status: string | null
+          stripe_transfer_id: string | null
+        }
+        Insert: {
+          amount: number
+          created_at?: string
+          id?: string
+          photographer_id: string
+          processed_at?: string | null
+          status?: string | null
+          stripe_transfer_id?: string | null
+        }
+        Update: {
+          amount?: number
+          created_at?: string
+          id?: string
+          photographer_id?: string
+          processed_at?: string | null
+          status?: string | null
+          stripe_transfer_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "fk_payouts_photographer"
+            columns: ["photographer_id"]
+            isOneToOne: false
+            referencedRelation: "marketplace_profiles"
+            referencedColumns: ["user_id"]
+          },
+        ]
+      }
+      photos: {
+        Row: {
+          created_at: string
+          date_taken: string
+          description: string | null
+          digital_price: number
+          id: string
+          image_url: string
+          is_active: boolean | null
+          is_featured: boolean | null
+          latitude: number | null
+          location: string
+          longitude: number | null
+          metadata: Json | null
+          photographer_id: string
+          tags: Json | null
+          thumbnail_url: string | null
+          title: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          date_taken: string
+          description?: string | null
+          digital_price: number
+          id?: string
+          image_url: string
+          is_active?: boolean | null
+          is_featured?: boolean | null
+          latitude?: number | null
+          location: string
+          longitude?: number | null
+          metadata?: Json | null
+          photographer_id: string
+          tags?: Json | null
+          thumbnail_url?: string | null
+          title?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          date_taken?: string
+          description?: string | null
+          digital_price?: number
+          id?: string
+          image_url?: string
+          is_active?: boolean | null
+          is_featured?: boolean | null
+          latitude?: number | null
+          location?: string
+          longitude?: number | null
+          metadata?: Json | null
+          photographer_id?: string
+          tags?: Json | null
+          thumbnail_url?: string | null
+          title?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "fk_photos_photographer"
+            columns: ["photographer_id"]
+            isOneToOne: false
+            referencedRelation: "marketplace_profiles"
+            referencedColumns: ["user_id"]
+          },
+        ]
+      }
+      print_options: {
+        Row: {
+          created_at: string
+          description: string | null
+          height_inches: number
+          id: string
+          is_active: boolean | null
+          name: string
+          price: number
+          type: Database["public"]["Enums"]["print_type"]
+          width_inches: number
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          height_inches: number
+          id?: string
+          is_active?: boolean | null
+          name: string
+          price: number
+          type: Database["public"]["Enums"]["print_type"]
+          width_inches: number
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          height_inches?: number
+          id?: string
+          is_active?: boolean | null
+          name?: string
+          price?: number
+          type?: Database["public"]["Enums"]["print_type"]
+          width_inches?: number
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           created_at: string
@@ -366,6 +646,8 @@ export type Database = {
       }
     }
     Enums: {
+      order_status: "pending" | "completed" | "cancelled" | "refunded"
+      print_type: "matte_paper" | "canvas" | "metal" | "acrylic"
       user_role: "patient" | "doctor" | "admin"
     }
     CompositeTypes: {
@@ -494,6 +776,8 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
+      order_status: ["pending", "completed", "cancelled", "refunded"],
+      print_type: ["matte_paper", "canvas", "metal", "acrylic"],
       user_role: ["patient", "doctor", "admin"],
     },
   },
