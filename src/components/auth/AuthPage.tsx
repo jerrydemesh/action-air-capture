@@ -48,26 +48,10 @@ const AuthPage = () => {
 
       if (error) throw error;
 
-      if (data.user) {
-        // Create marketplace profile
-        const { error: profileError } = await supabase
-          .from("marketplace_profiles")
-          .insert({
-            user_id: data.user.id,
-            email: signUpData.email,
-            first_name: signUpData.firstName,
-            last_name: signUpData.lastName,
-            role: signUpData.role,
-            phone: signUpData.phone,
-          });
-
-        if (profileError) throw profileError;
-
-        toast({
-          title: "Account created!",
-          description: "Welcome to Action Aerials. You can start exploring right away.",
-        });
-      }
+      toast({
+        title: "Account created!",
+        description: "Welcome to Action Aerials. You can start exploring right away.",
+      });
     } catch (error: any) {
       toast({
         title: "Error",
