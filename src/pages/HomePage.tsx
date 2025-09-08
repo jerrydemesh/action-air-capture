@@ -11,6 +11,8 @@ import { CalendarIcon, MapPin, Camera, Clock, DollarSign, Search } from "lucide-
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import Header from "@/components/layout/Header";
+import WatermarkedImage from "@/components/ui/WatermarkedImage";
+import { useNavigate } from "react-router-dom";
 
 interface Photo {
   id: string;
@@ -34,6 +36,7 @@ interface SearchFilters {
 
 const HomePage = () => {
   const { profile } = useAuth();
+  const navigate = useNavigate();
   const [photos, setPhotos] = useState<Photo[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchOpen, setSearchOpen] = useState(false);
@@ -186,12 +189,12 @@ const HomePage = () => {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {photos.map((photo) => (
-              <Card key={photo.id} className="group overflow-hidden hover:shadow-lg transition-shadow cursor-pointer">
+              <Card key={photo.id} className="group overflow-hidden hover:shadow-lg transition-shadow cursor-pointer" onClick={() => navigate(`/photo/${photo.id}`)}>
                 <div className="aspect-square relative overflow-hidden">
-                  <img
+                  <WatermarkedImage
                     src={photo.thumbnail_url || photo.image_url}
                     alt={photo.title || "Surf photo"}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    className="w-full h-full group-hover:scale-105 transition-transform duration-300"
                   />
                   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors" />
                   <div className="absolute top-3 left-3">
