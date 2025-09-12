@@ -390,15 +390,7 @@ export type Database = {
           total_amount?: number
           updated_at?: string
         }
-        Relationships: [
-          {
-            foreignKeyName: "fk_orders_customer"
-            columns: ["customer_id"]
-            isOneToOne: false
-            referencedRelation: "marketplace_profiles"
-            referencedColumns: ["user_id"]
-          },
-        ]
+        Relationships: []
       }
       patients: {
         Row: {
@@ -482,15 +474,7 @@ export type Database = {
           status?: string | null
           stripe_transfer_id?: string | null
         }
-        Relationships: [
-          {
-            foreignKeyName: "fk_payouts_photographer"
-            columns: ["photographer_id"]
-            isOneToOne: false
-            referencedRelation: "marketplace_profiles"
-            referencedColumns: ["user_id"]
-          },
-        ]
+        Relationships: []
       }
       photos: {
         Row: {
@@ -550,15 +534,7 @@ export type Database = {
           title?: string | null
           updated_at?: string
         }
-        Relationships: [
-          {
-            foreignKeyName: "fk_photos_photographer"
-            columns: ["photographer_id"]
-            isOneToOne: false
-            referencedRelation: "marketplace_profiles"
-            referencedColumns: ["user_id"]
-          },
-        ]
+        Relationships: []
       }
       print_options: {
         Row: {
