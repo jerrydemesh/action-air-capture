@@ -48,22 +48,7 @@ export type Database = {
           recommended_treatments?: string | null
           suggested_icd10_codes?: string | null
         }
-        Relationships: [
-          {
-            foreignKeyName: "ai_assessments_charting_id_fkey"
-            columns: ["charting_id"]
-            isOneToOne: false
-            referencedRelation: "charting"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "ai_assessments_doctor_id_fkey"
-            columns: ["doctor_id"]
-            isOneToOne: false
-            referencedRelation: "profiles"
-            referencedColumns: ["id"]
-          },
-        ]
+        Relationships: []
       }
       appointments: {
         Row: {
@@ -102,22 +87,7 @@ export type Database = {
           status?: string
           updated_at?: string
         }
-        Relationships: [
-          {
-            foreignKeyName: "appointments_doctor_id_fkey"
-            columns: ["doctor_id"]
-            isOneToOne: false
-            referencedRelation: "profiles"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "appointments_patient_id_fkey"
-            columns: ["patient_id"]
-            isOneToOne: false
-            referencedRelation: "patients"
-            referencedColumns: ["id"]
-          },
-        ]
+        Relationships: []
       }
       charting: {
         Row: {
@@ -165,29 +135,7 @@ export type Database = {
           updated_at?: string
           vitals?: Json | null
         }
-        Relationships: [
-          {
-            foreignKeyName: "charting_appointment_id_fkey"
-            columns: ["appointment_id"]
-            isOneToOne: false
-            referencedRelation: "appointments"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "charting_doctor_id_fkey"
-            columns: ["doctor_id"]
-            isOneToOne: false
-            referencedRelation: "profiles"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "charting_patient_id_fkey"
-            columns: ["patient_id"]
-            isOneToOne: false
-            referencedRelation: "patients"
-            referencedColumns: ["id"]
-          },
-        ]
+        Relationships: []
       }
       insurance_claims: {
         Row: {
@@ -238,29 +186,7 @@ export type Database = {
           treatment_description?: string
           updated_at?: string
         }
-        Relationships: [
-          {
-            foreignKeyName: "insurance_claims_appointment_id_fkey"
-            columns: ["appointment_id"]
-            isOneToOne: false
-            referencedRelation: "appointments"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "insurance_claims_doctor_id_fkey"
-            columns: ["doctor_id"]
-            isOneToOne: false
-            referencedRelation: "profiles"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "insurance_claims_patient_id_fkey"
-            columns: ["patient_id"]
-            isOneToOne: false
-            referencedRelation: "patients"
-            referencedColumns: ["id"]
-          },
-        ]
+        Relationships: []
       }
       marketplace_profiles: {
         Row: {
@@ -338,29 +264,7 @@ export type Database = {
           print_option_id?: string | null
           quantity?: number | null
         }
-        Relationships: [
-          {
-            foreignKeyName: "fk_order_items_order"
-            columns: ["order_id"]
-            isOneToOne: false
-            referencedRelation: "orders"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "fk_order_items_photo"
-            columns: ["photo_id"]
-            isOneToOne: false
-            referencedRelation: "photos"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "fk_order_items_print_option"
-            columns: ["print_option_id"]
-            isOneToOne: false
-            referencedRelation: "print_options"
-            referencedColumns: ["id"]
-          },
-        ]
+        Relationships: []
       }
       orders: {
         Row: {
@@ -622,8 +526,8 @@ export type Database = {
       }
     }
     Enums: {
-      order_status: "pending" | "completed" | "cancelled" | "refunded"
-      print_type: "matte_paper" | "canvas" | "metal" | "acrylic"
+      order_status: "pending" | "paid" | "fulfilled" | "cancelled"
+      print_type: "digital" | "canvas" | "metal" | "paper"
       user_role: "patient" | "doctor" | "admin"
     }
     CompositeTypes: {
@@ -752,8 +656,8 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
-      order_status: ["pending", "completed", "cancelled", "refunded"],
-      print_type: ["matte_paper", "canvas", "metal", "acrylic"],
+      order_status: ["pending", "paid", "fulfilled", "cancelled"],
+      print_type: ["digital", "canvas", "metal", "paper"],
       user_role: ["patient", "doctor", "admin"],
     },
   },
