@@ -149,7 +149,17 @@ const PhotographerDashboard = () => {
     return `$${(cents / 100).toFixed(2)}`;
   };
 
-  if (profile?.role !== 'photographer') {
+  if (!profile) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-primary/5 via-accent/5 to-secondary/10">
+        <Header onSearchClick={() => {}} />
+        <div className="container mx-auto px-4 py-12 flex items-center justify-center">
+          <div className="animate-spin h-8 w-8 border-2 border-primary border-t-transparent rounded-full"></div>
+        </div>
+      </div>
+    );
+  }
+  if (profile.role !== 'photographer') {
     return (
       <div className="min-h-screen bg-gradient-to-br from-primary/5 via-accent/5 to-secondary/10">
         <Header onSearchClick={() => {}} />

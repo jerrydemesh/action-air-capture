@@ -7,7 +7,7 @@ import { AuthProvider, useAuth } from "./hooks/useAuth";
 import HomePage from "./pages/HomePage";
 import AuthPage from "./components/auth/AuthPage";
 import NotFound from "./pages/NotFound";
-import PhotographerDashboard from "./pages/PhotographerDashboard";
+import DashboardRouter from "./pages/DashboardRouter";
 import PhotoDetailPage from "./pages/PhotoDetailPage";
 
 const queryClient = new QueryClient();
@@ -27,7 +27,7 @@ const AppRoutes = () => {
     <Routes>
       <Route path="/" element={user ? <HomePage /> : <AuthPage />} />
       <Route path="/auth" element={<AuthPage />} />
-      <Route path="/dashboard" element={<PhotographerDashboard />} />
+      <Route path="/dashboard" element={<DashboardRouter />} />
       <Route path="/photo/:id" element={<PhotoDetailPage />} />
       {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
       <Route path="*" element={<NotFound />} />

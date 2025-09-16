@@ -108,21 +108,19 @@ const Header = ({ onSearchClick, cartItemCount = 0 }: HeaderProps) => {
                         Profile
                       </Link>
                     </DropdownMenuItem>
+                    <DropdownMenuItem asChild>
+                      <Link to="/dashboard" className="flex items-center">
+                        <BarChart3 className="mr-2 h-4 w-4" />
+                        Dashboard
+                      </Link>
+                    </DropdownMenuItem>
                     {profile.role === 'photographer' && (
-                      <>
-                        <DropdownMenuItem asChild>
-                          <Link to="/upload" className="flex items-center">
-                            <Upload className="mr-2 h-4 w-4" />
-                            Upload Photos
-                          </Link>
-                        </DropdownMenuItem>
-                        <DropdownMenuItem asChild>
-                          <Link to="/dashboard" className="flex items-center">
-                            <BarChart3 className="mr-2 h-4 w-4" />
-                            Dashboard
-                          </Link>
-                        </DropdownMenuItem>
-                      </>
+                      <DropdownMenuItem asChild>
+                        <Link to="/upload" className="flex items-center">
+                          <Upload className="mr-2 h-4 w-4" />
+                          Upload Photos
+                        </Link>
+                      </DropdownMenuItem>
                     )}
                     <DropdownMenuSeparator />
                     <DropdownMenuItem onClick={signOut}>
