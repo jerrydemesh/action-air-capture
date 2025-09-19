@@ -8,8 +8,10 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { Camera, Waves, Mail, Lock, User, Phone } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const AuthPage = () => {
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
 
@@ -79,6 +81,7 @@ const AuthPage = () => {
         title: "Welcome back!",
         description: "Successfully signed in to Action Aerials.",
       });
+      navigate("/dashboard");
     } catch (error: any) {
       toast({
         title: "Error",

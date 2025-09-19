@@ -39,7 +39,7 @@ interface PhotoUpload {
 }
 
 const PhotographerDashboard = () => {
-  const { profile } = useAuth();
+  const { profile, user, session } = useAuth();
   const { toast } = useToast();
   const [photos, setPhotos] = useState<Photo[]>([]);
   const [loading, setLoading] = useState(true);
@@ -54,18 +54,21 @@ const PhotographerDashboard = () => {
     imageFile: null,
   });
 
+  const role = (profile?.role || session?.user?.user_metadata?.role) as 'photographer' | 'surfer' | undefined;
+  const photographerId = profile?.user_id || user?.id;
+
   useEffect(() => {
-    if (profile?.role === 'photographer') {
+    if (role === 'photographer' && photographerId) {
       fetchPhotos();
     }
-  }, [profile]);
+  }, [role, photographerId]);
 
   const fetchPhotos = async () => {
     try {
       const { data, error } = await supabase
         .from('photos')
         .select('*')
-        .eq('photographer_id', profile?.user_id)
+        .eq('photographer_id', photographerId)
         .order('created_at', { ascending: false });
 
       if (error) throw error;
@@ -149,7 +152,7 @@ const PhotographerDashboard = () => {
     return `$${(cents / 100).toFixed(2)}`;
   };
 
-  if (!profile) {
+  if (!role) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-primary/5 via-accent/5 to-secondary/10">
         <Header onSearchClick={() => {}} />
@@ -159,7 +162,7 @@ const PhotographerDashboard = () => {
       </div>
     );
   }
-  if (profile.role !== 'photographer') {
+  if (role !== 'photographer') {
     return (
       <div className="min-h-screen bg-gradient-to-br from-primary/5 via-accent/5 to-secondary/10">
         <Header onSearchClick={() => {}} />

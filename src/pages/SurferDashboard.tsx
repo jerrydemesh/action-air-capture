@@ -2,6 +2,7 @@ import Header from "@/components/layout/Header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Heart, ShoppingBag, Compass } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const SurferDashboard = () => {
   return (
@@ -24,7 +25,7 @@ const SurferDashboard = () => {
             <CardContent className="space-y-3">
               <p className="text-sm text-muted-foreground">Browse the latest surf shots and find your sessions.</p>
               <Button asChild>
-                <a href="/">Start Browsing</a>
+                <Link to="/">Start Browsing</Link>
               </Button>
             </CardContent>
           </Card>
